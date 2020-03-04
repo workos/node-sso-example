@@ -33,6 +33,4 @@ npm start
 
 Head to `$YOUR_DOMAIN/login` to authenticate!
 
-For more information, see the [WorkOS Node SDK documentation](https://dashboard.workos.com/docs/sdk/node).
-
-_(\*) When running in a local environnent, you'll need to provide a redirect URI that points to your machine. You can use [ngrok](https://ngrok.com) to set up a tunnel and do this._
+For more information, see the [WorkOS Node SDK documentation](https://docs.workos.com/sdk/node).
