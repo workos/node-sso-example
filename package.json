@@ -2,11 +2,18 @@
   "name": "express-login-app",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "node": "10.19.0"
+  },
+  "volta": {
+    "node": "10.19.0",
+    "yarn": "1.22.4"
+  },
   "scripts": {
     "start": "node -r dotenv/config ./bin/www"
   },
   "dependencies": {
-    "@workos-inc/js": "^0.0.22",
+    "@workos-inc/node": "0.1.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
