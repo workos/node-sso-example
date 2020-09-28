@@ -3,10 +3,11 @@ var router = express.Router();
 var express = require('express');
 var router = express.Router();
 const WorkOS = require('@workos-inc/node').default;
+
 const client = new WorkOS(process.env.WORKOS_API_KEY);
-const domain = 'zach.workos.dev';
-const redirectURI = 'https://zach.workos.dev/callback';
-const projectID = 'project_01DG5TGK363GRVXP3ZS40WNGEZ';
+const domain = "$YOUR_DOMAIN";
+const redirectURI = "$YOUR_REDIRECT_URI";
+const projectID = "$YOUR_PROJECT_ID";
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
