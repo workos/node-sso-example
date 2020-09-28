@@ -29,7 +29,6 @@ router.get('/callback', async (req, res) => {
   const profile = await client.sso.getProfile({
     code,
     projectID,
-    redirectURI,
   });
   res.json(profile).send();
 });
