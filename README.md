@@ -12,18 +12,15 @@ git clone https://github.com/workos-inc/node-sso-example.git && cd node-sso-exam
 
 ## Configure your environment
 
-1. Grab your [API Key](https://dashboard.workos.com/api-keys).
-2. Create an [SSO Connection](https://dashboard.workos.com/sso/connections).
-3. Configure a [Redirect URI](https://dashboard.workos.com/sso/configuration).
-4. Get your [Project ID](https://dashboard.workos.com/sso/configuration).
-5. Update `routes/index.js`:
-
-```typescript
-const client = new WorkOS("$YOUR_API_KEY");
-const domain = "$YOUR_DOMAIN";
-const redirectURI = "$YOUR_REDIRECT_URI";
-const projectID = "$YOUR_PROJECT_ID";
+1. Grab your API Key and Client ID from the WorkOS Dashboard. Create a `.env`
+file at the root of the project, and store these like so:
 ```
+WORKOS_API_KEY=sk_xxxxxxxxxxxxx
+WORKOS_CLIENT_ID=project_xxxxxxxxxxxx
+```
+2. Create an SSO Connection in the WorkOS Dashboard.
+3. Add `http://localhost:3000/callback` as a Redirect URI in the Configuration section of the Dashboard.
+4. Update `routes/index.js` with the Connection domain (or Connection ID).
 
 ## Run the server and log in using SSO
 
@@ -31,6 +28,6 @@ const projectID = "$YOUR_PROJECT_ID";
 npm start
 ```
 
-Head to `$YOUR_DOMAIN/login` to authenticate!
+Head to `http://localhost:3000/login` to authenticate!
 
 For more information, see the [WorkOS Node SDK documentation](https://docs.workos.com/sdk/node).

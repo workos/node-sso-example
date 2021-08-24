@@ -13,7 +13,7 @@
     "start": "node -r dotenv/config ./bin/www"
   },
   "dependencies": {
-    "@workos-inc/node": "0.1.1",
+    "@workos-inc/node": "1.3.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
