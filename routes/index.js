@@ -60,9 +60,11 @@ router.get('/callback', async (req, res) => {
     clientID,
   });
 
+
   let img;
   profile.profile.raw_attributes.picture ? img = profile.profile.raw_attributes.picture : img = url('../public/images/workos_logo_new.png');
   const json_profile = JSON.stringify(profile)
+
   
   res.render('login_successful.ejs', {profile: json_profile, first_name: profile.profile.first_name, image: profile.profile.raw_attributes.picture})
  
