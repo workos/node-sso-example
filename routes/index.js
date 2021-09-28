@@ -12,14 +12,14 @@ const client = new WorkOS(process.env.WORKOS_API_KEY);
 // you can pass the Connection ID instead of the domain.
 const domain = "gmail.com";
 
-// Set the redirect URI to whatever URL the end user should land on post-authentication
-// You'll also want to ensure that the redirect URI you use is included in your
-// allow list in the WorkOS Dashboard.
+// Set the redirect URI to whatever URL the end user should land on post-authentication.
+// Ensure that the redirect URI you use is included in your allowlist inthe WorkOS Dashboard.
 const redirectURI = "http://localhost:3000/callback";
 
-// Store the Client ID, pulled from .env and found in the Configuration section
+// Store the Client ID, pulled from .env sourced from the Configuration section
 // of the WorkOS Dashboard.
 const clientID = process.env.WORKOS_CLIENT_ID;
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -60,10 +60,11 @@ router.get('/callback', async (req, res) => {
     clientID,
   });
 
-  //Render the profile stored above.
+
   let img;
-  const json_profile = JSON.stringify(profile)
   profile.profile.raw_attributes.picture ? img = profile.profile.raw_attributes.picture : img = url('../public/images/workos_logo_new.png');
+  const json_profile = JSON.stringify(profile)
+
   
   res.render('login_successful.ejs', {profile: json_profile, first_name: profile.profile.first_name, image: profile.profile.raw_attributes.picture})
  
