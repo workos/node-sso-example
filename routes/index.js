@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var express = require('express');
-var router = express.Router();
 
 // Import the WorkOS package.
 const WorkOS = require('@workos-inc/node').default;
@@ -12,7 +10,7 @@ const client = new WorkOS(process.env.WORKOS_API_KEY);
 // Use domain associated to the organization in which your SSO Connection resides.
 // Alternatively, if your Organization has multiple SSO Connections within it,
 // you can pass the Connection ID instead of the domain.
-const domain = "dotnet.com";
+const domain = "gmail.com";
 
 // Set the redirect URI to whatever URL the end user should land on post-authentication
 // You'll also want to ensure that the redirect URI you use is included in your
@@ -25,7 +23,7 @@ const clientID = process.env.WORKOS_CLIENT_ID;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index.ejs', { title: 'Express' });
 });
 
 /* GET login page */
@@ -33,30 +31,45 @@ router.get('/login', (_req, res) => {
   // Make a call to getAuthoirzationURL, passing the domain (or Connection ID),
   // the redirect URI (optional, otherwise it will use your default set in the Dashboard)
   // and the clientID. Store the resulting URL in a `url` variable.
-  const url = client.sso.getAuthorizationURL({
-    domain,
-    redirectURI,
-    clientID,
-  });
-
-  // Redirect the user to the url generated above.
-  res.redirect(url);
+  try {
+    const url = client.sso.getAuthorizationURL({
+      domain,
+      redirectURI,
+      clientID,
+    });
+  
+    // Redirect the user to the url generated above.
+    res.redirect(url);
+    
+  } catch (error) {
+    res.render('error.ejs', {error: error})
+  }
 });
 
 /* GET callback page */
 router.get('/callback', async (req, res) => {
-  // Capture and save the `code` passed as a querystring in the Redirect URI.
+  try {
+    // Capture and save the `code` passed as a querystring in the Redirect URI.
   const { code } = req.query;
 
   // Make a call to getProfileAndToken and pass in the code (stored above) and
   // the clientID. This will return a JSON user profile, stored here in `profile`.
+  
   const profile = await client.sso.getProfileAndToken({
     code,
     clientID,
   });
 
   //Render the profile stored above.
-  res.json(profile).send();
+  let img;
+  const json_profile = JSON.stringify(profile)
+  profile.profile.raw_attributes.picture ? img = profile.profile.raw_attributes.picture : img = url('../public/images/workos_logo_new.png');
+  
+  res.render('login_successful.ejs', {profile: json_profile, first_name: profile.profile.first_name, image: profile.profile.raw_attributes.picture})
+ 
+  } catch (error) {
+    res.render('error.ejs', {error: error})
+  }
 });
 
 module.exports = router;
